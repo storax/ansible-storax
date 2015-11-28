@@ -1,0 +1,8 @@
+---
+
+- name: My Computer
+  hosts: all
+  become: yes
+  remote_user: vagrant
+  roles:
+    - base
