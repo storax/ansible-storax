@@ -1,0 +1,37 @@
+---
+
+- name: Update apt
+  apt: update_cache={{ update_apt_cache }}
+  tags: packages
+
+- name: Ensure bash, OpenSSl, and libssl are the latest versions
+  apt: name={{ item }} state=latest
+  with_items:
+    - bash
+    - openssl
+    - libssl-dev
+    - libssl-doc
+  tags: packages
+
+- name: Install base packages
+  apt: name={{ item }} force=yes state=latest
+  with_items:
+    - build-essential
+    - cmake
+    - curl
+    - gcc
+    - linux-headers-server
+    - linux-server
+    - llvm
+    - make
+    - ntp
+    - wget
+    - '{{ language_pack}}'
+  tags: packages
+
+- name: Install linux linux-headers
+  shell: apt-get install -y linux-headers-$(uname -r
+
+- name: Make sure ntp is running
+  service: name=ntp state=started enabled=yes
+  tags: service

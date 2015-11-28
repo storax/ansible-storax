@@ -1,0 +1,3 @@
+- name: Install desktop packages
+  apt: name={{ item }} force=yes state=latest
+  with_items: '{{ desktop_packages }}'

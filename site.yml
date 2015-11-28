@@ -4,5 +4,8 @@
   hosts: all
   become: yes
   remote_user: vagrant
+  var_files:
+    - env_vars/public.yml
   roles:
     - base
+    - desktop
