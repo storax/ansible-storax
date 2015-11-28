@@ -7,5 +7,6 @@
   vars_files:
     - env_vars/public.yml
   roles:
-    - base
     - desktop
+    - develop
+    - dotfiles

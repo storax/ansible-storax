@@ -1,0 +1,15 @@
+---
+
+develop_tools:
+  - git
+  - git-flow
+  - git-flow
+  - gitk
+  - guake
+  - jq
+  - python-pip
+  - python2.7-dev
+  - python3.4-dev
+  - ruby
+  - ruby-dev
+  - zsh

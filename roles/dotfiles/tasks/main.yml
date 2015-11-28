@@ -1,0 +1,22 @@
+---
+
+- name: Update apt
+  apt: update_cache={{ update_apt_cache }}
+
+- name: Install ruby
+  apt: name=ruby force=yes state=latest
+
+- name: Install homesick
+  gem: name=homesick state=latest
+
+- name: Clone castles
+  command: homesick clone {{ item }}
+  remote_user: "{{ dotfiles_user }}"
+  become: no
+  with_items: "{{ dotfiles_castles }}"
+
+- name: Symlink castles
+  command: homesick symlink {{ item }}
+  remote_user: "{{ dotfiles_user }}"
+  become: no
+  with_items: "{{ dotfiles_castles }}"

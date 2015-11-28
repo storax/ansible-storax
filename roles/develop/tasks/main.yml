@@ -1,0 +1,8 @@
+---
+
+- name: Update apt
+  apt: update_cache={{ update_apt_cache }}
+
+- name: Install development tools
+  apt: name={{ item }} force=yes state=latest
+  with_items: "{{ develop_tools }}"

@@ -1,4 +1,7 @@
 ---
-
-desktop_packages:
-  - ubuntu-desktop
+desktop_package: ubuntu-desktop
+desktop_additional_packages:
+  - compizconfig-settings-manager
+  - gconf2
+  - pidgin
+  - pidgin-otr
