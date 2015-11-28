@@ -45,4 +45,5 @@ Vagrant.configure(2) do |config|
     ansible.playbook = "site.yml"
     ansible.limit = 'all'# "#{info[:ip]}" # Ansible hosts are identified by ip
     ansible.vault_password_file = "vaultpwfile.txt"
+  end
 end
