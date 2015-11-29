@@ -1,5 +1,7 @@
 ---
 
+- meta: flush_handlers
+
 - name: Update apt
   apt: update_cache={{ update_apt_cache }}
 
@@ -10,11 +12,19 @@
   gem: name=homesick state=latest user_install=no
 
 - name: Clone castles
-  command: /usr/local/bin/homesick clone {{ item }}
+  command: /usr/local/bin/homesick clone {{ item.0 }} {{ item.1 }}
   become: no
-  with_items: "{{ dotfiles_castle_uris }}"
+  with_together:
+    - "{{ dotfiles_castle_uris }}"
+    - "{{ dotfiles_castle_names }}"
+  register: homesick_clone
+  changed_when: >
+    homesick_clone.rc == 0 and ("git clone" in homesick_clone.stdout)
 
 - name: Symlink castles
   command: /usr/local/bin/homesick symlink {{ item }}
   become: no
   with_items: "{{ dotfiles_castle_names }}"
+  register: homesick_symlink
+  changed_when: >
+     homesick_symlink.rc == 0 and ("symlink" in homesick_symlink.stdout)
