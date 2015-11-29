@@ -1,5 +1,7 @@
 ---
 
+- meta: flush_handlers
+
 - name: Update apt
   apt: update_cache={{ update_apt_cache }}
 
