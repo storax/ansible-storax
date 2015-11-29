@@ -7,16 +7,14 @@
   apt: name=ruby force=yes state=latest
 
 - name: Install homesick
-  gem: name=homesick state=latest
+  gem: name=homesick state=latest user_install=no
 
 - name: Clone castles
-  command: homesick clone {{ item }}
-  remote_user: "{{ dotfiles_user }}"
+  command: /usr/local/bin/homesick clone {{ item }}
   become: no
-  with_items: "{{ dotfiles_castles }}"
+  with_items: "{{ dotfiles_castle_uris }}"
 
 - name: Symlink castles
-  command: homesick symlink {{ item }}
-  remote_user: "{{ dotfiles_user }}"
+  command: /usr/local/bin/homesick symlink {{ item }}
   become: no
-  with_items: "{{ dotfiles_castles }}"
+  with_items: "{{ dotfiles_castle_names }}"

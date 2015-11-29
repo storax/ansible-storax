@@ -1,4 +1,6 @@
 ---
 
-dotfiles_user: vagrant
-dotfiles_castles: []
+# list of links like githubuser/reponame
+dotfiles_castle_uris: []
+# corresponding list of names. e.g. reponame
+dotfiles_castle_names: []
