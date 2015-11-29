@@ -41,9 +41,9 @@ Vagrant.configure(2) do |config|
   # end
 
   config.vm.provision :ansible do |ansible|
-    ansible.verbose = "vv"
-    ansible.playbook = "site.yml"
+    ansible.verbose = ENV.fetch('ANSIBLE_VERBOSE', 'vv')
+    ansible.playbook = ENV.fetch('ANSIBLE_PLAYBOOK', 'site.yml')
     ansible.limit = 'all'# "#{info[:ip]}" # Ansible hosts are identified by ip
-    ansible.vault_password_file = "vaultpwfile.txt"
+    ansible.vault_password_file = ENV.fetch('ANSIBLE_VAULT_PASSWORD_FILE', 'vaultpwfile.txt')
   end
 end
