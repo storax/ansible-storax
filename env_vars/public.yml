@@ -1,5 +1,26 @@
 ---
 
+locale_generate:
+  - "en_US.UTF-8 UTF-8"
+locale_env:
+  lang: "en_US.UTF-8"
+  language: "en_US:en"
+  lc_all: "en_US.UTF-8"
+  lc_address: ~
+  lc_collate: "C"
+  lc_ctype: ~
+  lc_identification: ~
+  lc_measurement: ~
+  lc_messages: ~
+  lc_monetary: ~
+  lc_name: ~
+  lc_numeric: ~
+  lc_paper: ~
+  lc_telephone: ~
+  lc_time: ~
+  locpath: ~
+
+
 dotfiles_castle_uris:
   - storax/storaxcastle
 dotfiles_castle_names:

@@ -7,6 +7,8 @@
   vars_files:
     - env_vars/public.yml
   roles:
+    - { role: base, tags: "base" }
+    - { role: f500.locale, tags: "locale" }
     - { role: desktop, tags: "desktop" }
     - { role: develop, tags: "develop" }
     - { role: dotfiles, tags: "dotfiles" }
