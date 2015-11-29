@@ -3,6 +3,12 @@
 - name: Update apt
   apt: update_cache={{ update_apt_cache }}
 
+- name: Install language pack
+  apt: name={{ language_pack }} force=yes state=latest
+
+- name: Compile Locale
+  locale_gen: name={{ locale }} state=present
+
 - name: Ensure bash, OpenSSl, and libssl are the latest versions
   apt: name={{ item }} state=latest
   with_items:
@@ -24,10 +30,8 @@
     - make
     - ntp
     - wget
-    - "{{ language_pack}}"
-
-- name: Install linux linux-headers
-  shell: apt-get install -y linux-headers-$(uname -r)
+    - "{{ language_pack }}"
+    - linux-headers-{{ ansible_kernel }}
 
 - name: Make sure ntp is running
   service: name=ntp state=started enabled=yes
