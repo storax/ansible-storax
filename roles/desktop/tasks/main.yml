@@ -11,3 +11,7 @@
 - name: Install additional desktop packages
   apt: name={{ item }} force=yes state=latest
   with_items: "{{ desktop_additional_packages }}"
+
+- name: No show HUD hotkey
+  shell: >-
+    gsettings set org.compiz.integrated show-hud "['']"
