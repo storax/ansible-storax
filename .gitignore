@@ -1,3 +1,4 @@
 .python-version
 .vagrant
 vaultpwfile.txt
+roles/f500.locale
