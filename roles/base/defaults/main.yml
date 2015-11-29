@@ -2,5 +2,6 @@
 
 update_apt_cache: true
 
-language_pack: language-pack-en
-locale: en_US.UTF-8
+language_packs:
+ - language-pack-en
+ - language-pack-en-base

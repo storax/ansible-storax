@@ -4,10 +4,8 @@
   apt: update_cache={{ update_apt_cache }}
 
 - name: Install language pack
-  apt: name={{ language_pack }} force=yes state=latest
-
-- name: Compile Locale
-  locale_gen: name={{ locale }} state=present
+  apt: name={{ item }} force=yes state=latest
+  with_items: "{{ language_packs }}"
 
 - name: Ensure bash, OpenSSl, and libssl are the latest versions
   apt: name={{ item }} state=latest
@@ -30,7 +28,6 @@
     - make
     - ntp
     - wget
-    - "{{ language_pack }}"
     - linux-headers-{{ ansible_kernel }}
 
 - name: Make sure ntp is running
