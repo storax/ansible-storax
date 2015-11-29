@@ -12,4 +12,4 @@
     - { role: desktop, tags: "desktop" }
     - { role: develop, tags: "develop" }
     - { role: dotfiles, tags: "dotfiles" }
-
+    - { role: pyenv, tags: "pyenv"}
