@@ -1,0 +1,45 @@
+---
+
+- name: See if emacs already installed
+  command: dpkg-query -W -f='${Status}' {{ emacs_package_name}}
+  register: emacs
+  changed_when: False
+  always_run: True
+  failed_when: not (emacs.rc == 0 or (emacs.rc == 1 and 'no packages found matching' in emacs.stderr))
+
+- name: Assures /tmp/emacs-{{ emacs_version }}-src dir exists
+  file: path=/tmp/emacs-{{ emacs_version }}-src state=directory
+
+- name: Download emacs source
+  unarchive:
+    src: http://ftpmirror.gnu.org/emacs/emacs-{{ emacs_version }}.tar.gz
+    dest: /tmp/emacs-{{ emacs_version }}-src
+    copy: no
+    creates: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+  when: (emacs.stdout == 'unknown ok not-installed') or ('no packages found matching' in emacs.stderr)
+
+- name: Install build dependencies for emacs
+  apt: name={{ emacs_build_dep }} state=build-dep
+  register: emacs_builddep
+  changed_when: "'0 newly installed' not in emacs_builddep.stdout_lines[-1]"
+
+- name: Configure emacs build
+  shell: ./configure
+  args:
+    chdir: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+    creates: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/Makefile
+
+- name: Build emacs
+  shell: make
+  args:
+    chdir: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+  register: emacs_build
+  changed_when: "emacs_build.stdout.count('nothing to be done for') == 5"
+
+#- name: Install checkinstall
+#  apt: name=checkinstall state=latest
+
+#- name: Create package
+#  command: checkinstall -y
+#  args:
+#    chdir: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}

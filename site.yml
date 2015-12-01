@@ -13,4 +13,5 @@
     - { role: develop, tags: "develop" }
     - { role: dotfiles, tags: "dotfiles" }
     - { role: zsh, tags: "zsh" }
+    - { role: emacs, tags: "emacs"}
     - { role: pyenv, tags: "pyenv"}

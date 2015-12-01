@@ -1,0 +1,6 @@
+---
+
+emacs_package_name: emacs
+emacs_version: 24.5
+emacs_build_dep: emacs24
+
