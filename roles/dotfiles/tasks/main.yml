@@ -2,9 +2,6 @@
 
 - meta: flush_handlers
 
-- name: Update apt
-  apt: update_cache={{ update_apt_cache }}
-
 - name: Install ruby
   apt: name=ruby force=yes state=latest
 

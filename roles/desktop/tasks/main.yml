@@ -2,9 +2,6 @@
 
 - meta: flush_handlers
 
-- name: Update apt
-  apt: update_cache={{ update_apt_cache }}
-
 - name: Install desktop
   apt: name={{ desktop_package }} force=yes state=latest
 
