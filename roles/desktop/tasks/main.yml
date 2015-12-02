@@ -18,3 +18,8 @@
   gsetting: user={{ ansible_ssh_user }}
             key=com.canonical.Unity.Launcher.favorites
             value="['application://org.gnome.Nautius.desktop', 'application://firefox.desktop', 'application://unity-control-center.desktop', 'application://emacs.desktop', 'appliaction://pidgin.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']"
+
+- name: Map caps to ctrl
+  gsetting: user={{ ansible_ssh_user }}
+            key=org.gnome.desktop.input-sources.xkb-options
+            value="['ctrl:nocaps']"
