@@ -1,7 +1,10 @@
 ---
 
-- name: Update apt
+- name: Update apt cache
   apt: update_cache={{ update_apt_cache }}
+
+- name: Dist upgrade
+  apt: upgrade=safe
 
 - name: Install language pack
   apt: name={{ item }} force=yes state=latest
