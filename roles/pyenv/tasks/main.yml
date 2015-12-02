@@ -18,7 +18,6 @@
   become: no
   args:
     creates: ~/.pyenv
-  when: pyenvdownload.changed
 
 - name: Install pyenv-virtualenvwrapper
   git:
