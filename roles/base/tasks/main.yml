@@ -3,7 +3,7 @@
 - name: Update apt cache
   apt: update_cache={{ update_apt_cache }}
 
-- name: Dist upgrade
+- name: Safe upgrade
   apt: upgrade=safe
 
 - name: Install language pack
