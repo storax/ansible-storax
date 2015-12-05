@@ -3,7 +3,6 @@
 develop_tools:
   - git
   - git-flow
-  - git-flow
   - gitk
   - guake
   - jq
