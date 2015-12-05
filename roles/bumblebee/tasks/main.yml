@@ -1,0 +1,33 @@
+---
+
+- name: Add xorg-edgers
+  apt_repository: repo='ppa:xorg-edgers/ppa' update_cache=yes state=present
+
+- name: Upgrade
+  apt: upgrade=yes
+
+- name: Upgrade packages
+  apt: upgrade=dist
+
+- name: Install bumblebee packages
+  apt: name={{item}} state=latest
+  with_items:
+    - bumblebee
+    - bumblebee-nvidia
+    - primus
+    - nvidia-{{ bumblebee_nvidia_version}}
+
+- name: Add the user to the bumblebee security group
+  user: name={{ ansible_ssh_user }} group=bumblebee
+
+- name: Configure modules
+  lineinfile: dest=/etc/modules line={{item}}
+  with_items:
+    - "i915"
+    - "bbswitch"
+
+- name: Configure bumblebee
+  template: src=bumblebee.conf.j2 dest=/etc/bumblebee/bumblebee.conf owner=root group=root mode=0644
+
+- name: Blacklist nvidia driver in modprobe
+  lineinfile: dest=/etc/modprobe.d/bumblebee.conf line="blacklist nvidia-{{ bumblebee_nvidia_version }}"
