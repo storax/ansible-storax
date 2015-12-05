@@ -3,3 +3,6 @@
 - name: Install development tools
   apt: name={{ item }} force=yes state=latest
   with_items: "{{ develop_tools }}"
+
+- name: Install travis
+  gem: name=travis state=latest user_install=no
