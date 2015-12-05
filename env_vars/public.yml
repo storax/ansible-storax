@@ -47,3 +47,12 @@ pyenv_python_packages:
   - clf
   - cookiecutter
   - virtualenvwrapper
+
+pip2pi_dir: ~/projects/pip2pi
+pip2pi_packages:
+  - pytest
+  - tox
+  - sphinx
+  - mock
+  - coverage
+  - mock

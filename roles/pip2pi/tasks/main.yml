@@ -1,0 +1,11 @@
+---
+
+- name: Install pip2pi
+  pip: name=pip2pi state=latest
+
+- name: Assures {{ pip2pi_dir }} dir exists
+  file: path={{ pip2pi_dir }} state=directory
+
+- name: Install some packages in the pip2pi dir
+  command: pip2pi {{ pip2pi_dir }} {{ item }} -n
+  with_items: "{{ pip2pi_packages }}"
