@@ -56,4 +56,4 @@
 
 - name: Install fonts
   apt: name={{item}} state=latest
-  with_items: {{ emacs_fonts }}
+  with_items: "{{ emacs_fonts }}"
