@@ -1,7 +1,7 @@
 ---
 
 - name: Add git repo
-  apt_repository: 'ppa:git-core/ppa' state=present
+  apt_repository: repo='ppa:git-core/ppa' state=present
 
 - name: Install development tools
   apt: name={{ item }} force=yes state=latest
