@@ -20,7 +20,6 @@ locale_env:
   lc_time: ~
   locpath: ~
 
-
 dotfiles_castle_uris:
   - storax/storaxcastle
 dotfiles_castle_names:
@@ -29,6 +28,9 @@ dotfiles_castle_names:
 emacs_fonts:
   - fonts-dejavu
   - fonts-inconsolata
+emacs_python_packages:
+  - elpy
+  - pyflakes
 
 pyenv_runcom: ~
 pyenv_versions:
