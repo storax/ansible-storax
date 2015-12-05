@@ -3,4 +3,4 @@
 emacs_package_name: emacs24
 emacs_version: 24.5
 emacs_build_dep: emacs24
-
+emacs_fonts: []
