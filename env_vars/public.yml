@@ -29,3 +29,10 @@ dotfiles_castle_names:
 emacs_fonts:
   - fonts-dejavu
   - fonts-inconsolata
+
+pyenv_versions:
+  - 2.7.10
+  - 3.4.3
+  - 3.5.0
+pyenv_default_versions:
+  - 3.4.3
