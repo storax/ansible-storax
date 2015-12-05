@@ -22,3 +22,7 @@ develop_tools:
   - virtualbox-guest-dkms 
   - virtualbox-qt
   - zsh
+
+develop_ansible_dir: ~/programms/ansible
+develop_packer_dir: ~/programms/packer
+develop_packer_version: 0.8.6
