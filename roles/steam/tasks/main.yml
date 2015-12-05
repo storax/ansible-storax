@@ -1,0 +1,7 @@
+---
+
+- name: Download the steam package
+  get_url: url=http://media.steampowered.com/client/installer/steam.deb dest=/tmp/steam.deb
+
+- name: Install steam
+  apt: deb=/tmp/steam.deb

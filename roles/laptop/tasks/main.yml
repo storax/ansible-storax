@@ -1,5 +1,10 @@
 ---
 
+- name: Check if hwC1D0 exists
+  stat: path=/sys/class/sound/hwC1D0
+  register: hwc1d0
+
 - name: Fix headphone jack
-  lineinfile: dest=/sys/class/sound/hwC1D0/user_pin_configs regexp=^0x1b line=0x1b 0x0321403f
+  copy: src=user_pin_configs dest=/sys/class/sound/hwC1D0/user_pin_configs owner=root group=root mode=644 backup=yes
   notify: alsa reload
+  when: hwc1d0.stat.exists

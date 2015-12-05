@@ -19,3 +19,4 @@
     - { role: pip2pi, tags: "pip2pi"}
     - { role: pyside, tags: "pyside"}
     - { role: laptop, tags: "laptop"}
+    - { role: steam, tags: "steam"}
