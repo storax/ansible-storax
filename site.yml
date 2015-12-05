@@ -14,5 +14,5 @@
     - { role: dotfiles, tags: "dotfiles" }
     - { role: zsh, tags: "zsh" }
     - { role: emacs, tags: "emacs"}
-    - { role: dirn.pyenv, tags: "pyenv"}
-    - { role: pyenv, tags: "pyenv"}
+    - { role: dirn.pyenv, tags: "pyenv", become: no}
+
