@@ -19,4 +19,5 @@
     - { role: pip2pi, tags: "pip2pi"}
     - { role: pyside, tags: "pyside"}
     - { role: laptop, tags: "laptop"}
+    - { role: bumblebee, tags: "bumblebee"}
     - { role: steam, tags: "steam"}
