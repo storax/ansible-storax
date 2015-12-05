@@ -1,0 +1,5 @@
+---
+
+- name: alsa reload
+  command: alsa reload
+  changed_when: False

@@ -1,0 +1,5 @@
+---
+
+- name: Fix headphone jack
+  lineinfile: dest=/sys/class/sound/hwC1D0/user_pin_configs regexp=^0x1b line=0x1b 0x0321403f
+  notify: alsa reload
