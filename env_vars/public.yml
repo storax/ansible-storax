@@ -30,6 +30,7 @@ emacs_fonts:
   - fonts-dejavu
   - fonts-inconsolata
 
+pyenv_runcom: ~
 pyenv_versions:
   - 2.7.10
   - 3.4.3
