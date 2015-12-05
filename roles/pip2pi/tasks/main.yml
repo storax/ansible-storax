@@ -8,4 +8,6 @@
 
 - name: Install some packages in the pip2pi dir
   command: pip2pi {{ pip2pi_dir }} {{ item }} -n
+  args:
+    creates: "{{pip2pi_dir}}/simple/{{item}}"
   with_items: "{{ pip2pi_packages }}"
