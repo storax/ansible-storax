@@ -17,3 +17,4 @@
     - { role: pyenv, tags: "pyenv", become: no}
     - { role: spotify, tags: "spotify"}
     - { role: pip2pi, tags: "pip2pi"}
+    - { role: pyside, tags: "pyside"}
