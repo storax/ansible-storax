@@ -19,7 +19,7 @@
     homesick_clone.rc == 0 and ("git clone" in homesick_clone.stdout)
 
 - name: Symlink castles
-  command: /usr/local/bin/homesick symlink -f {{ item }}
+  command: /usr/local/bin/homesick link {{ item }} --force
   become: no
   with_items: "{{ dotfiles_castle_names }}"
   register: homesick_symlink
