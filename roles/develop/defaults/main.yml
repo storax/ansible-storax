@@ -1,5 +1,11 @@
 ---
 
+develop_python_tools:
+  - httpie
+  - eg
+  - clf
+  - cookiecutter
+
 develop_tools:
   - git
   - git-flow

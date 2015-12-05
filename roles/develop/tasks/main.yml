@@ -9,3 +9,7 @@
 
 - name: Install travis
   gem: name=travis state=latest user_install=no
+
+- name: Install python tools
+  pip: name={{item}} state=latest
+  with_items: "{{ develop_python_tools }}"
