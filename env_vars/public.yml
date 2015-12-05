@@ -39,3 +39,11 @@ pyenv_versions:
   - 3.5.0
 pyenv_default_versions:
   - 3.4.3
+pyenv_python_packages:
+  - elpy
+  - pyflakes
+  - httpie
+  - eg
+  - clf
+  - cookiecutter
+  - virtualenvwrapper

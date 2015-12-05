@@ -40,7 +40,7 @@
     create=yes
     insertbefore="fi # pyenv"
     line="    pyenv virtualenvwrapper_lazy"
-  when: pyenv_virtualenv
+  when: pyenv_virtualenv and pyenv_runcom
 
 - name: Configure virtualenvwrapper
   lineinfile: >
@@ -52,3 +52,9 @@
     - export WORKON_HOME=\"$HOME/.virtualenvs\"
     - export PROJECT_HOME=\"$HOME/development\"
   when: pyenv_virtualenv and pyenv_runcom
+
+- name: Install python packages for each version
+  pip: name="{{item[0]}}" state=latest executable={{ pyenv_root }}/versions/{{ item[1] }}/bin/pip
+  with_nested:
+    - "{{ pyenv_python_packages}}"
+    - "{{ pyenv_versions }}"

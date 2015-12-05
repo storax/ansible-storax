@@ -12,3 +12,5 @@ pyenv_virtualenv: true
 
 pyenv_install_environ:
   PYTHON_CONFIGURE_OPTS: "--enable-unicode=ucs4 --enable-shared"
+
+pyenv_python_packages: []
