@@ -1,7 +1,7 @@
 ---
 
 develop_tools:
-  - git
+  - git-all
   - git-flow
   - gitk
   - guake
