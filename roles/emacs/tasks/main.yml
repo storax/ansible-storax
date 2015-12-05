@@ -53,3 +53,7 @@
 
 - name: Install built the emacs package
   apt: deb=/tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.deb
+
+- name: Install fonts
+  apt: name={{item}} state=latest
+  with_items: {{ emacs_fonts }}
