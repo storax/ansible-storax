@@ -17,4 +17,8 @@ develop_tools:
   - python3.4-dev
   - ruby
   - ruby-dev
+  - virtualbox
+  - virtualbox-dkms
+  - virtualbox-guest-dkms 
+  - virtualbox-qt
   - zsh
