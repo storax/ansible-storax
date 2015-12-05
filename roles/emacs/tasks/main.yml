@@ -57,3 +57,7 @@
 - name: Install fonts
   apt: name={{item}} state=latest
   with_items: "{{ emacs_fonts }}"
+
+- name: Install python packages for emacs
+  pip: name={{item}} state=latest
+  with_items: "{{ emacs_python_packages }}"
