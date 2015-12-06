@@ -39,7 +39,7 @@
   command: "{{ develop_packer_dir}}/packer --version"
   become: no
   register: packerversion
-  when: packer.stat.exists
+  when: not packer.stat.exists
 
 - name: Install packer
   unarchive: >
@@ -47,7 +47,7 @@
     dest={{ develop_packer_dir }}
     copy=no
   become: no
-  when: "packer.stat.exists and packerversion.stdout != {{ develop_packer_version }}"
+  when: "not packer.stat.exists or packerversion.stdout != {{ develop_packer_version }}"
 
 - name: Install required packages for ansible
   apt: >
