@@ -20,7 +20,6 @@ develop_tools:
   - ruby-dev
   - virtualbox-5.0
   - virtualbox-guest-dkms 
-  - virtualbox-qt
   - zsh
 
 develop_ansible_dir: ~/programms/ansible
