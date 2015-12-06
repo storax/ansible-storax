@@ -7,6 +7,7 @@ develop_python_tools:
   - cookiecutter
 
 develop_tools:
+  - dkms
   - git
   - git-flow
   - gitk
@@ -17,8 +18,7 @@ develop_tools:
   - python3.4-dev
   - ruby
   - ruby-dev
-  - virtualbox
-  - virtualbox-dkms
+  - virtualbox-5.0
   - virtualbox-guest-dkms 
   - virtualbox-qt
   - zsh
