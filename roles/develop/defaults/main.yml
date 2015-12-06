@@ -23,5 +23,6 @@ develop_tools:
   - zsh
 
 develop_ansible_dir: ~/programms/ansible
+develop_vagrant_version: 1.7.4
 develop_packer_dir: ~/programms/packer
 develop_packer_version: 0.8.6
