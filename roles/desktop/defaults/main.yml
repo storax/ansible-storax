@@ -2,9 +2,11 @@
 desktop_package: ubuntu-desktop
 desktop_additional_packages:
   - compizconfig-settings-manager
+  - enigmail
   - gconf2
+  - gnupg-doc
+  - htop
   - pidgin
   - pidgin-otr
-  - vlc
-  - htop
   - thunderbird
+  - vlc
