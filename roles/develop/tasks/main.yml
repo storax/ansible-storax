@@ -30,6 +30,10 @@
 - name: Install vagrant
   apt: deb=/tmp/vagrant_{{ develop_vagrant_version}}.deb
 
+- name: Create packer dir
+  file: path="{{ develop_packer_dir}}" state=directory
+  become: no
+
 - name: Check if packer installed
   stat: path="{{ develop_packer_dir}}/packer"
   register: packer
@@ -40,6 +44,7 @@
   become: no
   register: packerversion
   when: packer.stat.exists
+  failed_when: False
 
 - name: Install packer
   unarchive: >
