@@ -39,7 +39,7 @@
   command: "{{ develop_packer_dir}}/packer --version"
   become: no
   register: packerversion
-  when: not packer.stat.exists
+  when: packer.stat.exists
 
 - name: Install packer
   unarchive: >
