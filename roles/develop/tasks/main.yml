@@ -7,9 +7,9 @@
   apt_key: url=https://www.virtualbox.org/download/oracle_vbox.asc state=present
 
 - name: Add virtualbox repo
-  apt_repository: >
-    repo='deb http://download.virtualbox.org/virtualbox/debian trusty contrib'
-    state=present
+  apt_repository:
+    repo: 'deb http://download.virtualbox.org/virtualbox/debian trusty contrib'
+    state: present
 
 - name: Install development tools
   apt: name={{ item }} force=yes state=latest
@@ -23,9 +23,9 @@
   with_items: "{{ develop_python_tools }}"
 
 - name: Download vagrant package
-  get_url: >
-    url=https://releases.hashicorp.com/vagrant/{{ develop_vagrant_version}}/vagrant_{{ develop_vagrant_version}}_x86_64.deb
-    dest=/tmp/vagrant_{{ develop_vagrant_version}}.deb
+  get_url:
+    url: https://releases.hashicorp.com/vagrant/{{ develop_vagrant_version}}/vagrant_{{ develop_vagrant_version}}_x86_64.deb
+    dest: /tmp/vagrant_{{ develop_vagrant_version}}.deb
 
 - name: Install vagrant
   apt: deb=/tmp/vagrant_{{ develop_vagrant_version}}.deb
@@ -48,18 +48,18 @@
   changed_when: "packerversion.stdout != '{{ develop_packer_version}}'"
 
 - name: Install packer
-  unarchive: >
-    src=https://releases.hashicorp.com/packer/{{ develop_packer_version}}/packer_{{ develop_packer_version}}_linux_amd64.zip
-    dest={{ develop_packer_dir }}
-    copy=no
+  unarchive:
+    src: https://releases.hashicorp.com/packer/{{ develop_packer_version}}/packer_{{ develop_packer_version}}_linux_amd64.zip
+    dest: "{{ develop_packer_dir }}"
+    copy: no
   become: no
   when: "not packer.stat.exists or packerversion.changed"
 
 - name: Install required packages for ansible
-  apt: >
-   name={{item}}
-   state=latest
-   update_cache=yes
+  apt:
+   name: "{{item}}"
+   state: latest
+   update_cache: yes
   with_items:
    - git
    - python-setuptools
@@ -67,9 +67,9 @@
    - build-essential
 
 - name: Install required python packages for ansible
-  pip: >
-   name={{item}}
-   state=latest
+  pip:
+   name: "{{item}}"
+   state: latest
   with_items:
    - paramiko
    - PyYAML
@@ -78,10 +78,20 @@
    - six
 
 - name: Clone ansible
-  git: >
-   repo=https://github.com/ansible/ansible.git
-   recursive=yes
-   dest={{develop_ansible_dir}}
-   accept_hostkey=yes
-   update=no
+  git:
+   repo: https://github.com/ansible/ansible.git
+   recursive: yes
+   dest: "{{develop_ansible_dir}}"
+   accept_hostkey: yes
+   update: no
   become: no
+
+- name: Clone repositories
+  git:
+    repo: "{{item[0]}}"
+    dest: "{{item[1]}}"
+    update: no
+  become: no
+  with_together:
+    - "{{ develop_repo_urls }}"
+    - "{{ develop_repo_dests }}"

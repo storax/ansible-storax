@@ -56,3 +56,31 @@ pip2pi_packages:
   - mock
   - coverage
   - mock
+
+_prj_dir: ~/projects
+develop_repo_urls:
+  - https://github.com/storax/ansible-storax
+  - https://github.com/storax/storaxcastle
+  - https://github.com/storax/easymodel
+  - https://github.com/storax/travis-pyside-test
+  - https://github.com/storax/qmenuview
+  - https://github.com/storax/cookiecutter-pypackage
+  - https://github.com/storax/vagrant-boxes
+  - https://github.com/storax/vagrantdevenv
+  - https://github.com/storax/jinjaapidoc
+  - https://github.com/storax/upme
+  - https://github.com/Pytwitcher/pytwitcher
+  - https://github.com/Pytwitcher/pytwitcherapi
+develop_repo_dests:
+  - "{{_prj_dir}}/ansible-storax"
+  - "{{_prj_dir}}/storaxcastle"
+  - "{{_prj_dir}}/easymodel"
+  - "{{_prj_dir}}/travis-pyside-test"
+  - "{{_prj_dir}}/qmenuview"
+  - "{{_prj_dir}}/cookiecutter-pypackage"
+  - "{{_prj_dir}}/vagrant-boxes"
+  - "{{_prj_dir}}/vagrantdevenv"
+  - "{{_prj_dir}}/jinjaapidoc"
+  - "{{_prj_dir}}/upme"
+  - "{{_prj_dir}}/pytwitcher/pytwitcher"
+  - "{{_prj_dir}}/pytwitcher/pytwitcherapi"
