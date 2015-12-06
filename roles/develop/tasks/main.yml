@@ -28,7 +28,7 @@
     dest=/tmp/vagrant_{{ develop_vagrant_version}}.deb
 
 - name: Install vagrant
-  apt: dep=/tmp/vagrant_{{ develop_vagrant_version}}.deb
+  apt: deb=/tmp/vagrant_{{ develop_vagrant_version}}.deb
 
 - name: Check if packer installed
   stat: path="{{ develop_packer_dir}}/packer"
