@@ -1,12 +1,5 @@
 ---
 
-- name: See if emacs already installed
-  command: dpkg-query -W -f='${Status}' {{ emacs_package_name}}
-  register: emacs
-  changed_when: False
-  always_run: True
-  failed_when: not (emacs.rc == 0 or (emacs.rc == 1 and 'no packages found matching' in emacs.stderr))
-
 - name: Assures /tmp/emacs-{{ emacs_version }}-src dir exists
   file: path=/tmp/emacs-{{ emacs_version }}-src state=directory
 
@@ -16,7 +9,6 @@
     dest: /tmp/emacs-{{ emacs_version }}-src
     copy: no
     creates: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
-  when: (emacs.stdout == 'unknown ok not-installed') or ('no packages found matching' in emacs.stderr)
 
 - name: Install build dependencies for emacs
   apt: name={{ emacs_build_dep }} state=build-dep
