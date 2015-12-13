@@ -3,7 +3,6 @@
 - name: My Computer
   hosts: all
   become: yes
-  remote_user: vagrant
   vars_files:
     - env_vars/public.yml
   roles:
