@@ -50,6 +50,10 @@
   apt: name={{item}} state=latest
   with_items: "{{ emacs_fonts }}"
 
+- name: Install additional packages for emacs
+  apt: name={{item}} state=latest
+  with_items: "{{ emacs_add_packages }}"
+
 - name: Install python packages for emacs
   pip: name={{item}} state=latest
   with_items: "{{ emacs_python_packages }}"

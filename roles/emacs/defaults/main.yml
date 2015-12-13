@@ -5,3 +5,4 @@ emacs_version: 24.5
 emacs_build_dep: emacs24
 emacs_fonts: []
 emacs_python_packages: []
+emacs_add_packages: []
