@@ -31,6 +31,12 @@ emacs_fonts:
 emacs_python_packages:
   - elpy
   - pyflakes
+  - rope
+  - jedi
+  - flake8
+  - importmagic
+  - autopep8
+  - yapf
 
 pyenv_runcom: ~
 pyenv_versions:
