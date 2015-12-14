@@ -74,7 +74,30 @@
   shell: make
   args:
     chdir: ~/.emacs.d/helm
+  become: no
 
 - name: Install helm-swoop
   git: repo=https://github.com/ShingoFukuyama/helm-swoop dest=~/.emacs.d/helm-swoop
+  become: no
+
+- name: Download pdf-tools
+  git: repo=https://github.com/politza/pdf-tools dest=~/.emacs.d/pdf-tools
+  become: no
+
+- name: Install pdf-tools server-deps
+  shell: make install-server-deps
+  args:
+    chdir: ~/.emacs.d/pdf-tools
+  become: no
+
+- name: Compile pdf-tools
+  shell: make -s
+  args:
+    chdir: ~/.emacs.d/pdf-tools
+  become: no
+
+- name: Install pdf-tools
+  shell: make install-package
+  args:
+    chdir: ~/.emacs.d/pdf-tools
   become: no
