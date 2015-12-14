@@ -57,3 +57,11 @@
 - name: Install python packages for emacs
   pip: name={{item}} state=latest
   with_items: "{{ emacs_python_packages }}"
+
+- name: Install yasnippet
+  git: repo=https://github.com/capitaomorte/yasnippet dest=~/.emacs.d/yasnippet
+  become: no
+
+- name: Install elpy
+  git: repo=https://github.com/jorgenschaefer/elpy dest=~/.emacs.d/elpy
+  become: no
