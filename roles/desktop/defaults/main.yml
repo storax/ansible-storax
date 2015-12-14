@@ -3,6 +3,7 @@ desktop_package: ubuntu-desktop
 desktop_additional_packages:
   - compizconfig-settings-manager
   - enigmail
+  - font-manager
   - gconf2
   - gnupg-doc
   - htop

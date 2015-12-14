@@ -91,7 +91,7 @@
   become: no
 
 - name: Compile pdf-tools
-  shell: make -s
+  shell: make
   args:
     chdir: ~/.emacs.d/pdf-tools
   become: no
@@ -100,4 +100,14 @@
   shell: make install-package
   args:
     chdir: ~/.emacs.d/pdf-tools
+  become: no
+
+- name: Download Powerline fonts
+  git: repo=https://github.com/powerline/fonts dest=~/.emacs.d/powerline-fonts
+  become: no
+
+- name: Install powerline fonts
+  shell: ./install.sh
+  args:
+    chdir: ~/.emacs.d/powerline-fonts
   become: no
