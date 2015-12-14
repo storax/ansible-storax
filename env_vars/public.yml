@@ -37,6 +37,8 @@ emacs_python_packages:
   - importmagic
   - autopep8
   - yapf
+emacs_add_packages:
+  - ack-grep
 
 pyenv_runcom: ~
 pyenv_versions:

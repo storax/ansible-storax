@@ -65,3 +65,16 @@
 - name: Install elpy
   git: repo=https://github.com/jorgenschaefer/elpy dest=~/.emacs.d/elpy
   become: no
+
+- name: Install helm
+  git: repo=https://github.com/emacs-helm/helm dest=~/.emacs.d/helm
+  become: no
+
+- name: Build helm
+  shell: make
+  args:
+    chdir: ~/.emacs.d/helm
+
+- name: Install helm-swoop
+  git: repo=https://github.com/ShingoFukuyama/helm-swoop dest=~/.emacs.d/helm-swoop
+  become: no
