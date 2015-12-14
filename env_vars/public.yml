@@ -39,6 +39,7 @@ emacs_python_packages:
   - yapf
 emacs_add_packages:
   - ack-grep
+  - surfraw
 
 pyenv_runcom: ~
 pyenv_versions:
