@@ -16,7 +16,7 @@
   changed_when: "'0 newly installed' not in emacs_builddep.stdout_lines[-1]"
 
 - name: Configure emacs build
-  shell: ./configure
+  shell: ./configure --without-toolkit-scroll-bars --with-x-toolkit=no
   args:
     chdir: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
     creates: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/Makefile
