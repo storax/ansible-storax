@@ -111,3 +111,42 @@
   args:
     chdir: ~/.emacs.d/powerline-fonts
   become: no
+
+- name: Download apel
+  git: repo=https://github.com:wanderlust/apel dest=/tmp/apel
+
+- name: Install apel
+  shell: make && make install
+  args:
+    chdir: /tmp/apel
+
+- name: Download flim
+  git: repo=https://github.com:wanderlust/flim dest=/tmp/flim
+
+- name: Install flim
+  shell: make && make install
+  args:
+    chdir: /tmp/flim
+
+- name: Download semi
+  git: repo=https://github.com:wanderlust/semi dest=/tmp/semi
+
+- name: Install semi
+  shell: make && make install
+  args:
+    chdir: /tmp/semi
+
+- name: Install gpg
+  apg: name=gpg
+
+- name: Download mailencrypt
+  unarchive:
+    src: http://downloads.sourceforge.net/project/mailcrypt/mailcrypt/3.5.9/mailcrypt-3.5.9.tar.gz
+    dest: /tmp/mailencrypt
+    copy: no
+    creates: /tmp/mailencrypt
+
+- name: Install mailencrypt
+  shell: ./configure && make && make install
+  args:
+    chdir: /tmp/mailencrypt
