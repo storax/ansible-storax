@@ -150,3 +150,7 @@
   shell: ./configure && make && make install
   args:
     chdir: /tmp/mailencrypt
+
+- name: Download Spotify.el
+  git: repo=https://github.com:storax/spotify.el dest=~/.emacs.d/spotify.el
+  become: no
