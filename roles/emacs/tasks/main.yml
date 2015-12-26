@@ -159,6 +159,10 @@
   git: repo=https://github.com:abo-abo/avy dest=~/.emacs.d/avy
   become: no
 
-- name: Download Spotify.el
+- name: Download ace-window
+  git: repo=https://github.com:abo-abo/ace-window dest=~/.emacs.d/ace-window
+  become: no
+
+- name: Download helm-dash
   git: repo=https://github.com:abo-abo/ace-window dest=~/.emacs.d/ace-window
   become: no

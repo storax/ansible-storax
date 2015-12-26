@@ -45,6 +45,7 @@ emacs_add_packages:
   - libpoppler-glib-dev
   - libpoppler-private-dev
   - imagemagick
+  - sqlite3
 
 pyenv_runcom: ~
 pyenv_versions:
