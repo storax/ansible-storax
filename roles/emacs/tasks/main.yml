@@ -81,7 +81,7 @@
 - name: Install mailencrypt
   shell: ./configure && make && make install
   args:
-    chdir: /tmp/mailencrypt-3.5.9
+    chdir: /tmp/mailcrypt-3.5.9
 
 - name: Download Spotify.el
   git: repo=https://github.com:storax/spotify.el dest=~/.emacs.d/spotify.el
