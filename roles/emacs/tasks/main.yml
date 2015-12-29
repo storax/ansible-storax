@@ -69,19 +69,19 @@
   become: no
 
 - name: Install gpg
-  apt: name=gpg state=latest
+  apt: name=gnupg state=latest
 
 - name: Download mailencrypt
   unarchive:
     src: http://downloads.sourceforge.net/project/mailcrypt/mailcrypt/3.5.9/mailcrypt-3.5.9.tar.gz
-    dest: /tmp/mailencrypt
+    dest: /tmp
     copy: no
-    creates: /tmp/mailencrypt
+    creates: /tmp/mailcrypt-3.5.9
 
 - name: Install mailencrypt
   shell: ./configure && make && make install
   args:
-    chdir: /tmp/mailencrypt
+    chdir: /tmp/mailencrypt-3.5.9
 
 - name: Download Spotify.el
   git: repo=https://github.com:storax/spotify.el dest=~/.emacs.d/spotify.el
