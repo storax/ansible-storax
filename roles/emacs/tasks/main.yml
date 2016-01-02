@@ -86,7 +86,3 @@
 - name: Download Spotify.el
   git: repo=https://github.com:storax/spotify.el dest=~/.emacs.d/spotify.el
   become: no
-
-- name: Download Orgmode
-  git: repo=git://orgmode.org:org-mode.git dest=~/.emacs.d/orgmode
-  become: no
