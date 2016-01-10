@@ -3,6 +3,9 @@
 - name: Add git repo
   apt_repository: repo='ppa:git-core/ppa' state=present
 
+- name: Add git repo
+  apt_repository: repo='ppa:webupd8team/unstable' state=present
+
 - name: Add virtualbox repo key
   apt_key: url=https://www.virtualbox.org/download/oracle_vbox.asc state=present
 
