@@ -1,0 +1,10 @@
+---
+
+- name: Entertainment
+  hosts: all
+  become: yes
+  vars_files:
+    - env_vars/public.yml
+  roles:
+    - { role: spotify, tags: "spotify"}
+    - { role: steam, tags: "steam"}

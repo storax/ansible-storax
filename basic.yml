@@ -1,0 +1,18 @@
+---
+
+- name: Whay you need to thrive and survive
+  hosts: all
+  become: yes
+  vars_files:
+    - env_vars/public.yml
+  roles:
+    - { role: base, tags: "base" }
+    - { role: f500.locale, tags: "locale" }
+    - { role: desktop, tags: "desktop" }
+    - { role: develop, tags: "develop" }
+    - { role: dotfiles, tags: "dotfiles" }
+    - { role: zsh, tags: "zsh" }
+    - { role: emacs, tags: "emacs"}
+    - { role: pyenv, tags: "pyenv", become: no}
+    - { role: pip2pi, tags: "pip2pi"}
+    - { role: pyside, tags: "pyside"}

@@ -1,0 +1,10 @@
+---
+
+- name: Schenker Laptop
+  hosts: all
+  become: yes
+  vars_files:
+    - env_vars/public.yml
+  roles:
+    - { role: laptop, tags: "laptop"}
+    - { role: bumblebee, tags: "bumblebee"}
