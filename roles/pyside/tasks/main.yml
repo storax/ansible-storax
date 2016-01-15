@@ -19,24 +19,21 @@
 - name: Install wheel
   pip: name=wheel state=latest
 
-- name: Assures /tmp/pyside-{{ pyside_version }}-src dir exists
-  file: path=/tmp/pyside-{{ pyside_version }}-src state=directory
-
 - name: Download PySide source
   unarchive:
     src: https://pypi.python.org/packages/source/P/PySide/PySide-{{ pyside_version }}.tar.gz
-    dest: /tmp/pyside-{{ pyside_version }}-src
+    dest: /tmp
     copy: no
-    creates: /tmp/pyside-{{ pyside_version }}-src/pyside-{{ pyside_version }}
+    creates: /tmp/PySide-{{ pyside_version }}
 
 - name: Compile PySide
   command: python setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4 --standalone
   args:
-    chdir: /tmp/pyside-{{ pyside_version }}-src/pyside-{{ pyside_version }}
-    creates: /tmp/pyside-{{ pyside_version }}-src/pyside-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl
+    chdir: /tmp/PySide-{{ pyside_version }}
+    creates: /tmp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl
 
 - name: Copy dist
-  copy: src=/tmp/pyside-{{ pyside_version }}-src/pyside-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl dest={{ pip2pi_dir }}  remote_src=True
+  copy: src=/tmp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl dest={{ pip2pi_dir }}  remote_src=True
 
 - name: Execute dir2pi
   command: dir2pi {{ pip2pi_dir }} -n
