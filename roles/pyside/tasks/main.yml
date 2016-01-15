@@ -1,20 +1,10 @@
 ---
 
-- name: Install build dependencies
-  apt: name={{ item }} state=present
-  with_items:
-    - build-essential
-    - git
-    - cmake
-    - libqt4-dev
-    - libphonon-dev
-    - python2.7-dev
-    - python3.4-dev
-    - libxml2-dev
-    - libxslt1-dev
-    - qtmobility-dev
-    - libqtwebkit-dev
-    - phonon-backend-vlc
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: redhat.yml
+  when: ansible_os_family == 'RedHat'
 
 - name: Install wheel
   pip: name=wheel state=latest
@@ -22,18 +12,18 @@
 - name: Download PySide source
   unarchive:
     src: https://pypi.python.org/packages/source/P/PySide/PySide-{{ pyside_version }}.tar.gz
-    dest: /tmp
+    dest: ~/tp
     copy: no
-    creates: /tmp/PySide-{{ pyside_version }}
+    creates: ~/tp/PySide-{{ pyside_version }}
 
 - name: Compile PySide
   command: python setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4 --standalone
   args:
-    chdir: /tmp/PySide-{{ pyside_version }}
-    creates: /tmp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl
+    chdir: ~/tp/PySide-{{ pyside_version }}
+    creates: ~/tp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl
 
 - name: Copy dist
-  copy: src=/tmp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl dest={{ pip2pi_dir }}  remote_src=True
+  copy: src=~/tp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl dest={{ pip2pi_dir }}  remote_src=True
 
 - name: Execute dir2pi
   command: dir2pi {{ pip2pi_dir }} -n
