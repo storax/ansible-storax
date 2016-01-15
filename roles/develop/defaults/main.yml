@@ -14,17 +14,14 @@ develop_tools:
   - guake
   - jq
   - python-pip
-  - python2.7-dev
-  - python3.4-dev
   - ruby
-  - ruby-dev
   - virtualbox-5.0
   - virtualbox-guest-dkms 
   - zsh
 
-develop_ansible_dir: ~/programms/ansible
+develop_ansible_dir: ~/tp/ansible
 develop_vagrant_version: 1.7.4
-develop_packer_dir: ~/programms/packer
+develop_packer_dir: ~/tp/packer
 develop_packer_version: 0.8.6
 
 develop_repo_urls: []

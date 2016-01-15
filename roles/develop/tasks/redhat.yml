@@ -1,0 +1,62 @@
+---
+
+- name: Add epel repository
+  yumrepo:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+
+- name: Install the Development tools package group
+  yum: name="@Development tools" state=present
+
+- name: Configure Oracle VirtualBox YUM repository
+  template: >
+    src=virtualbox.repo.j2
+    dest=/etc/yum.repos.d/virtualbox.repo
+    owner=root
+    group=root
+    mode=0644
+  tags: virtualbox
+
+- name: Install libselinux-python bindings
+  yum: name=libselinux-python state=present
+
+- name: Install kernel headers
+  yum: name=kernel-devel state=present
+
+- name: Install DKMS packages
+  yum: name=dkms state=present
+
+- name: Install VirtualBox packages
+  yum: name=VirtualBox-5.0 state=present
+
+- name: Install git
+  yum: name=git state=latest
+
+- name: Install ruby devel
+  yum: name=ruby-devel state=latest
+
+- name: Install python devel
+  apt: name={{item}} state=latest
+  with_items:
+    - python-devel
+    - python3-devel
+
+- name: Download vagrant package
+  get_url:
+    url: https://releases.hashicorp.com/vagrant/{{ develop_vagrant_version}}/vagrant_{{ develop_vagrant_version}}_x86_64.rpm
+    dest: ~/tp/vagrant_{{ develop_vagrant_version}}.rpm
+
+- name: Install vagrant
+  yum: name=~/tp/vagrant_{{ develop_vagrant_version}}.rpm
+
+- name: Install required packages for ansible
+  yum:
+   name: "{{item}}"
+   state: latest
+   update_cache: yes
+  with_items:
+   - git
+   - python-setuptools
+   - python-devel
+   - build-essential
