@@ -1,0 +1,4 @@
+---
+
+- name: Install desktop
+  apt: name={{ desktop_package }} force=yes state=latest

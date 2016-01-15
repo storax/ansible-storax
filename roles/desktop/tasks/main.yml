@@ -2,11 +2,14 @@
 
 - meta: flush_handlers
 
-- name: Install desktop
-  apt: name={{ desktop_package }} force=yes state=latest
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: redhat.yml
+  when: ansible_os_family == 'RedHat'
 
 - name: Install additional desktop packages
-  apt: name={{ item }} force=yes state=latest
+  package: name={{ item }} state=latest
   with_items: "{{ desktop_additional_packages }}"
 
 - name: No show HUD hotkey
