@@ -1,0 +1,50 @@
+---
+
+- name: Install emacs build deps
+  yum: name={{item}}
+  with_items:
+    - gcc
+    - make
+    - ncurses-devel
+    - giflib-devel
+    - libjpeg-devel
+    - libtiff-devel
+    - libxpm
+    - rpm-build
+    - rpmdevtools
+
+- name: Install emacs additional packages
+  apt: name={{item}}
+  with_times:
+    - libpng-devel
+    - libz-devel
+    - libpoppler-glib-devel
+    - libpoppler-private-devel
+
+- name: Create RPM Sourcetrees
+  command: rpmdev-setuptree
+
+- name: Install checkinstall
+  yum: name=ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/andnagy/RedHat_RHEL-6/x86_64/checkinstall-1.6.2-20.2.x86_64.rpm
+
+- name: Configure emacs build
+  shell: ./configure --without-toolkit-scroll-bars --with-x-toolkit=no
+  args:
+    chdir: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+    creates: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/Makefile
+
+- name: Build emacs
+  shell: make
+  args:
+    chdir: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+  register: emacs_build
+  changed_when: "emacs_build.stdout.count('Nothing to be done for') != 5"  # any better way?
+
+- name: Create package
+  command: checkinstall -y --install=no --pkgname={{ emacs_package_name }}
+  args:
+    chdir: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+    creates: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.deb
+
+- name: Install built the emacs package
+  yum: name=/tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.rpm

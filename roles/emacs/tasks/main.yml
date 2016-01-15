@@ -1,57 +1,33 @@
 ---
 
-- name: Assures /tmp/emacs-{{ emacs_version }}-src dir exists
-  file: path=/tmp/emacs-{{ emacs_version }}-src state=directory
-
-- name: Download emacs source
-  unarchive:
-    src: http://ftpmirror.gnu.org/emacs/emacs-{{ emacs_version }}.tar.gz
-    dest: /tmp/emacs-{{ emacs_version }}-src
-    copy: no
-    creates: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
-
-- name: Install build dependencies for emacs
-  apt: name={{ emacs_build_dep }} state=build-dep
-  register: emacs_builddep
-  changed_when: "'0 newly installed' not in emacs_builddep.stdout_lines[-1]"
-
-- name: Configure emacs build
-  shell: ./configure --without-toolkit-scroll-bars --with-x-toolkit=no
-  args:
-    chdir: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
-    creates: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/Makefile
-
-- name: Build emacs
-  shell: make
-  args:
-    chdir: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
-  register: emacs_build
-  changed_when: "emacs_build.stdout.count('Nothing to be done for') != 5"  # any better way?
-
-- name: Install checkinstall
-  apt: name=checkinstall state=latest
-
 - name: Get architecture
   command: dpkg --print-architecture
   register: architecture
   changed_when: False
   always_run: True
 
-- name: Create package
-  command: checkinstall -y --install=no --pkgname={{ emacs_package_name }}
-  args:
-    chdir: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
-    creates: /tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.deb
+- name: Assures /tmp/emacs-{{ emacs_version }}-src dir exists
+  file: path=~/tp/emacs-{{ emacs_version }}-src state=directory
 
-- name: Install built the emacs package
-  apt: deb=/tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.deb
+- name: Download emacs source
+  unarchive:
+    src: http://ftpmirror.gnu.org/emacs/emacs-{{ emacs_version }}.tar.gz
+    dest: ~/tp/emacs-{{ emacs_version }}-src
+    copy: no
+    creates: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: redhat.yml
+  when: ansible_os_family == 'RedHat'
 
 - name: Install fonts
-  apt: name={{item}} state=latest
+  package: name={{item}} state=latest
   with_items: "{{ emacs_fonts }}"
 
 - name: Install additional packages for emacs
-  apt: name={{item}} state=latest
+  package: name={{item}} state=latest
   with_items: "{{ emacs_add_packages }}"
 
 - name: Install python packages for emacs
@@ -69,19 +45,19 @@
   become: no
 
 - name: Install gpg
-  apt: name=gnupg state=latest
+  package: name=gnupg state=latest
 
 - name: Download mailencrypt
   unarchive:
     src: http://downloads.sourceforge.net/project/mailcrypt/mailcrypt/3.5.9/mailcrypt-3.5.9.tar.gz
     dest: /tmp
     copy: no
-    creates: /tmp/mailcrypt-3.5.9
+    creates: ~/tp/mailcrypt-3.5.9
 
 - name: Install mailcrypt
   shell: autoconf && ./configure && make && make install
   args:
-    chdir: /tmp/mailcrypt-3.5.9
+    chdir: ~/tp/mailcrypt-3.5.9
 
 - name: Download Spotify.el
   git: repo=https://github.com/storax/spotify.el dest=~/.emacs.d/spotify.el

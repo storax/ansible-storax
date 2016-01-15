@@ -40,10 +40,6 @@ emacs_python_packages:
 emacs_add_packages:
   - ack-grep
   - surfraw
-  - libpng-dev
-  - libz-dev
-  - libpoppler-glib-dev
-  - libpoppler-private-dev
   - imagemagick
   - sqlite3
   - dict
