@@ -78,8 +78,8 @@
     copy: no
     creates: /tmp/mailcrypt-3.5.9
 
-- name: Install mailencrypt
-  shell: ./configure && make && make install
+- name: Install mailcrypt
+  shell: autoconf && ./configure && make && make install
   args:
     chdir: /tmp/mailcrypt-3.5.9
 
