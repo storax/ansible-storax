@@ -35,3 +35,6 @@
 
 - name: Make sure ntp is running
   service: name=ntp state=started enabled=yes
+
+- name: Create third-party src directory
+  file: path=~/tp/ state=directory

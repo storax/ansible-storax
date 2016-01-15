@@ -3,6 +3,7 @@
 - name: Whay you need to thrive and survive
   hosts: all
   become: yes
+  become_user: "{{ user }}"
   vars_files:
     - env_vars/public.yml
   roles:
