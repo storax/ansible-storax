@@ -3,7 +3,7 @@
 - meta: flush_handlers
 
 - name: Install ruby
-  apt: name=ruby force=yes state=latest
+  package: name=ruby state=latest
 
 - name: Install homesick
   gem: name=homesick state=latest user_install=no
