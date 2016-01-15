@@ -1,0 +1,11 @@
+---
+
+- name: Upgrade
+  yum: name=* state=latest update_cache=yes
+
+- name: Ensure bash, OpenSSl are the latest versions
+  yum: name={{ item }} state=latest
+  with_items:
+    - bash
+    - openssl-devel
+    - openssl

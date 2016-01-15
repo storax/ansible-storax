@@ -1,0 +1,15 @@
+---
+
+- name: Update apt cache
+  apt: update_cache={{ update_apt_cache }}
+
+- name: Safe upgrade
+  apt: upgrade=safe
+
+- name: Ensure bash, OpenSSl, and libssl are the latest versions
+  apt: name={{ item }} state=latest
+  with_items:
+    - bash
+    - openssl
+    - libssl-dev
+    - libssl-doc
