@@ -45,10 +45,10 @@
 - name: Download vagrant package
   get_url:
     url: https://releases.hashicorp.com/vagrant/{{ develop_vagrant_version}}/vagrant_{{ develop_vagrant_version}}_x86_64.rpm
-    dest: ~/tp/vagrant_{{ develop_vagrant_version}}.rpm
+    dest: /home/{{ansible_ssh_user}}/tp/vagrant_{{ develop_vagrant_version}}.rpm
 
 - name: Install vagrant
-  yum: name=~/tp/vagrant_{{ develop_vagrant_version}}.rpm
+  yum: name=/home/{{ansible_ssh_user}}/tp/vagrant_{{ develop_vagrant_version}}.rpm
 
 - name: Install required packages for ansible
   yum:

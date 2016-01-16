@@ -1,4 +1,4 @@
 ---
 
-pip2pi_dir: ~/pip2pi
+pip2pi_dir: /home/{{ansible_ssh_user}}/pip2pi
 pip2pi_packages: []

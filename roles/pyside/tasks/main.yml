@@ -12,18 +12,18 @@
 - name: Download PySide source
   unarchive:
     src: https://pypi.python.org/packages/source/P/PySide/PySide-{{ pyside_version }}.tar.gz
-    dest: ~/tp
+    dest: /home/{{ansible_ssh_user}}/tp
     copy: no
     creates: ~/tp/PySide-{{ pyside_version }}
 
 - name: Compile PySide
   command: python setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4 --standalone
   args:
-    chdir: ~/tp/PySide-{{ pyside_version }}
+    chdir: /home/{{ansible_ssh_user}}/tp/PySide-{{ pyside_version }}
     creates: ~/tp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl
 
 - name: Copy dist
-  copy: src=~/tp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl dest={{ pip2pi_dir }}  remote_src=True
+  copy: src=/home/{{ansible_ssh_user}}/tp/PySide-{{ pyside_version }}/dist/PySide-{{ pyside_version }}-cp27-none-linux_x86_64.whl dest={{ pip2pi_dir }}  remote_src=True
 
 - name: Execute dir2pi
   command: dir2pi {{ pip2pi_dir }} -n

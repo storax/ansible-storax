@@ -30,10 +30,10 @@
 - name: Download vagrant package
   get_url:
     url: https://releases.hashicorp.com/vagrant/{{ develop_vagrant_version}}/vagrant_{{ develop_vagrant_version}}_x86_64.deb
-    dest: ~/tp/vagrant_{{ develop_vagrant_version}}.deb
+    dest: /home/{{ansible_ssh_user}}/tp/vagrant_{{ develop_vagrant_version}}.deb
 
 - name: Install vagrant
-  apt: deb=~/tp/vagrant_{{ develop_vagrant_version}}.deb
+  apt: deb=/home/{{ansible_ssh_user}}/tp/vagrant_{{ develop_vagrant_version}}.deb
 
 - name: Install required packages for ansible
   apt:

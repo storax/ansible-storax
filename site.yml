@@ -1,5 +1,5 @@
 ---
 
 - include: basic.yml
-- include: fun.yml
-- include: laptop.yml
+#- include: fun.yml
+#- include: laptop.yml

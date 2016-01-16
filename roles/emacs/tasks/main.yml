@@ -7,14 +7,14 @@
   always_run: True
 
 - name: Assures /tmp/emacs-{{ emacs_version }}-src dir exists
-  file: path=~/tp/emacs-{{ emacs_version }}-src state=directory
+  file: path=/home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src state=directory
 
 - name: Download emacs source
   unarchive:
     src: http://ftpmirror.gnu.org/emacs/emacs-{{ emacs_version }}.tar.gz
-    dest: ~/tp/emacs-{{ emacs_version }}-src
+    dest: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src
     copy: no
-    creates: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+    creates: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
 
 - include: debian.yml
   when: ansible_os_family == 'Debian'
@@ -52,12 +52,12 @@
     src: http://downloads.sourceforge.net/project/mailcrypt/mailcrypt/3.5.9/mailcrypt-3.5.9.tar.gz
     dest: /tmp
     copy: no
-    creates: ~/tp/mailcrypt-3.5.9
+    creates: /home/{{ansible_ssh_user}}/tp/mailcrypt-3.5.9
 
 - name: Install mailcrypt
   shell: autoconf && ./configure && make && make install
   args:
-    chdir: ~/tp/mailcrypt-3.5.9
+    chdir: /home/{{ansible_ssh_user}}/tp/mailcrypt-3.5.9
 
 - name: Download Spotify.el
   git: repo=https://github.com/storax/spotify.el dest=~/.emacs.d/spotify.el

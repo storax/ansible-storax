@@ -19,21 +19,21 @@
 - name: Configure emacs build
   shell: ./configure --without-toolkit-scroll-bars --with-x-toolkit=no
   args:
-    chdir: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
-    creates: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/Makefile
+    chdir: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+    creates: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/Makefile
 
 - name: Build emacs
   shell: make
   args:
-    chdir: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+    chdir: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
   register: emacs_build
   changed_when: "emacs_build.stdout.count('Nothing to be done for') != 5"  # any better way?
 
 - name: Create package
   command: checkinstall -y --install=no --pkgname={{ emacs_package_name }}
   args:
-    chdir: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
-    creates: ~/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.deb
+    chdir: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
+    creates: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.deb
 
 - name: Install built the emacs package
-  apt: deb=/tmp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.deb
+  apt: deb=/home/{{ansible_ssh_user}}/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.deb
