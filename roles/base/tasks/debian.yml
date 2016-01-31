@@ -13,3 +13,18 @@
     - openssl
     - libssl-dev
     - libssl-doc
+
+- name: Install language pack
+  package: name={{ item }} state=latest
+  with_items: "{{ language_packs }}"
+
+- name: Install base packages
+  package: name={{ item }} state=present
+  with_items:
+    - build-essential
+    - linux-headers-server
+    - linux-server
+    - linux-headers-{{ ansible_kernel }}
+
+- name: Make sure ntp is running
+  service: name=ntp state=started enabled=yes

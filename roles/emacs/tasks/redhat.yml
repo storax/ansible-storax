@@ -1,5 +1,11 @@
 ---
 
+- name: Get architecture
+  command: arch
+  register: architecture
+  changed_when: False
+  always_run: True
+
 - name: Install emacs build deps
   yum: name={{item}}
   with_items:
@@ -9,17 +15,42 @@
     - giflib-devel
     - libjpeg-devel
     - libtiff-devel
-    - libxpm
+    - libXpm
+    - libXpm-devel
+    - libX11-devel
+    - gtk2-devel
+    - librsvg2-devel
     - rpm-build
     - rpmdevtools
+    - libXaw
+    - liblockfile
+    - libotf
+    - emacs-common
+    - emacs
+    - texinfo
+    - poppler-devel
+    - poppler-glib
+    - poppler
+    - evince
+    - kdegraphics
+
+- name: Add psychotic ninja repo
+  yumrepo:
+    name: psychoticninja
+    baseurl: http://packages.psychotic.ninja/7/testing/x86_64/RPMS/
 
 - name: Install emacs additional packages
-  apt: name={{item}}
-  with_times:
+  yum: name={{item}}
+  with_items:
     - libpng-devel
-    - libz-devel
-    - libpoppler-glib-devel
-    - libpoppler-private-devel
+    - zlib-devel
+    - poppler-devel
+    - dejavu-fonts-common
+    - levien-inconsolata-fonts
+    - ack
+    - ImageMagick
+    - sqlite
+    - dictd
 
 - name: Create RPM Sourcetrees
   command: rpmdev-setuptree
@@ -41,10 +72,7 @@
   changed_when: "emacs_build.stdout.count('Nothing to be done for') != 5"  # any better way?
 
 - name: Create package
-  command: checkinstall -y --install=no --pkgname={{ emacs_package_name }}
+  command: make install
   args:
     chdir: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}
-    creates: /home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.rpm
-
-- name: Install built the emacs package
-  yum: name=/home/{{ansible_ssh_user}}/emacs-{{ emacs_version }}-src/emacs-{{ emacs_version }}/{{ emacs_package_name }}_{{ emacs_version }}-1_{{ architecture.stdout }}.rpm
+    creates: /usr/local/bin/emacs

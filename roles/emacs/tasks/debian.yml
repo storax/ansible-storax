@@ -1,5 +1,11 @@
 ---
 
+- name: Get architecture
+  command: dpkg --print-architecture
+  register: architecture
+  changed_when: False
+  always_run: True
+
 - name: Install build dependencies for emacs
   apt: name={{ emacs_build_dep }} state=build-dep
   register: emacs_builddep
@@ -7,11 +13,18 @@
 
 - name: Install emacs additional packages
   apt: name={{item}}
-  with_times:
+  with_items:
     - libpng-dev
     - libz-dev
     - libpoppler-glib-dev
     - libpoppler-private-dev
+    - fonts-dejavu
+    - fonts-inconsolata
+    - ack-grep
+    - surfraw
+    - imagemagick
+    - sqlite3
+    - dict
 
 - name: Install checkinstall
   apt: name=checkinstall state=latest

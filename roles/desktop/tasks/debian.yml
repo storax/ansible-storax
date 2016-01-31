@@ -2,3 +2,15 @@
 
 - name: Install desktop
   apt: name={{ desktop_package }} force=yes state=latest
+
+- name: Install compiz packages
+  apt: name={{ item }} force=yes state=latest
+  with_items:
+    - compizconfig-settings-manager
+    - enigmail
+    - font-manager
+    - gconf2
+    - gnupg-doc
+    - pidgin
+    - pidgin-otr
+    - vlc

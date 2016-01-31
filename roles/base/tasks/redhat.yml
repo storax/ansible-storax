@@ -9,3 +9,13 @@
     - bash
     - openssl-devel
     - openssl
+
+- name: Install base packages
+  yum: name={{ item }} state=present
+  with_items:
+    - kernel-devel
+    - gcc-c++
+    - "@Development tools"
+
+- name: Make sure ntp is running
+  service: name=ntpd state=started enabled=yes

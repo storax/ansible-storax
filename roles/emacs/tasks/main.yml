@@ -1,11 +1,5 @@
 ---
 
-- name: Get architecture
-  command: dpkg --print-architecture
-  register: architecture
-  changed_when: False
-  always_run: True
-
 - name: Assures /tmp/emacs-{{ emacs_version }}-src dir exists
   file: path=/home/{{ansible_ssh_user}}/tp/emacs-{{ emacs_version }}-src state=directory
 
@@ -21,10 +15,6 @@
 
 - include: redhat.yml
   when: ansible_os_family == 'RedHat'
-
-- name: Install fonts
-  package: name={{item}} state=latest
-  with_items: "{{ emacs_fonts }}"
 
 - name: Install additional packages for emacs
   package: name={{item}} state=latest
@@ -47,10 +37,10 @@
 - name: Install gpg
   package: name=gnupg state=latest
 
-- name: Download mailencrypt
+- name: Download mailcrypt
   unarchive:
     src: http://downloads.sourceforge.net/project/mailcrypt/mailcrypt/3.5.9/mailcrypt-3.5.9.tar.gz
-    dest: /tmp
+    dest: /home/{{ansible_ssh_user}}/tp
     copy: no
     creates: /home/{{ansible_ssh_user}}/tp/mailcrypt-3.5.9
 

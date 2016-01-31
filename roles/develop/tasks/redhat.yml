@@ -2,9 +2,10 @@
 
 - name: Add epel repository
   yumrepo:
+  args:
     name: epel
     description: EPEL YUM repo
-    baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+    baseurl: "http://download.fedoraproject.org/pub/epel/$releasever/$basearch/ "
 
 - name: Install the Development tools package group
   yum: name="@Development tools" state=present
@@ -37,10 +38,10 @@
   yum: name=ruby-devel state=latest
 
 - name: Install python devel
-  apt: name={{item}} state=latest
+  yum: name={{item}} state=latest
   with_items:
     - python-devel
-    - python3-devel
+    - python34-devel
 
 - name: Download vagrant package
   get_url:
@@ -50,13 +51,36 @@
 - name: Install vagrant
   yum: name=/home/{{ansible_ssh_user}}/tp/vagrant_{{ develop_vagrant_version}}.rpm
 
+- name: Download git source
+  unarchive:
+    src: https://github.com/git/git/archive/v2.7.0.tar.gz
+    dest: /home/{{ansible_ssh_user}}/tp/
+    copy: no
+    creates: /home/{{ansible_ssh_user}}/tp/git-2.7.0
+
+- name: Install git dependencies
+  yum: name={{item}}
+  with_items:
+    - gettext-devel
+    - openssl-devel
+    - perl-CPAN
+    - perl-devel
+    - zlib-devel
+    - curl-devel
+    - "@Development Tools"
+
+- name: Build git
+  shell: make configure && ./configure && make && make install
+  args:
+    chdir: /home/{{ansible_ssh_user}}/tp/git-2.7.0
+    creates: /home/{{ansible_ssh_user}}/tp/git-2.7.0/git.o
+
 - name: Install required packages for ansible
   yum:
    name: "{{item}}"
    state: latest
    update_cache: yes
   with_items:
-   - git
+   - python-pip
    - python-setuptools
    - python-devel
-   - build-essential

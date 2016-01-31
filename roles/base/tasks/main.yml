@@ -1,40 +1,21 @@
 ---
 
+- name: Install base packages
+  package: name={{ item }} state=present
+  with_items:
+    - cmake
+    - curl
+    - gcc
+    - llvm
+    - make
+    - ntp
+    - wget
+
 - include: debian.yml
   when: ansible_os_family == 'Debian'
 
 - include: redhat.yml
   when: ansible_os_family == 'RedHat'
-
-- name: Install language pack
-  package: name={{ item }} force=yes state=latest
-  with_items: "{{ language_packs }}"
-
-- name: Ensure bash, OpenSSl, and libssl are the latest versions
-  apt: name={{ item }} state=latest
-  with_items:
-    - bash
-    - openssl
-    - libssl-dev
-    - libssl-doc
-
-- name: Install base packages
-  package: name={{ item }} force=yes state=present
-  with_items:
-    - build-essential
-    - cmake
-    - curl
-    - gcc
-    - linux-headers-server
-    - linux-server
-    - llvm
-    - make
-    - ntp
-    - wget
-    - linux-headers-{{ ansible_kernel }}
-
-- name: Make sure ntp is running
-  service: name=ntp state=started enabled=yes
 
 - name: Create third-party src directory
   file: path=~/tp/ state=directory

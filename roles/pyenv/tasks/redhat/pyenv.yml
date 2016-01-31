@@ -5,12 +5,12 @@
   become: yes
   with_items:
     - make
-    - build-essential
     - openssl-devel
-    - zlib1g-devel
-    - libbz2-devel
-    - libreadline-devel
-    - libsqlite3-devel
+    - zlib-devel
+    - lbzip2-utils
+    - bzip2-devel
+    - readline-devel
+    - sqlite-devel
     - wget
     - curl
     - llvm

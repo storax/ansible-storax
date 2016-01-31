@@ -25,9 +25,6 @@ dotfiles_castle_uris:
 dotfiles_castle_names:
   - storaxcastle
 
-emacs_fonts:
-  - fonts-dejavu
-  - fonts-inconsolata
 emacs_python_packages:
   - elpy
   - pyflakes
@@ -37,12 +34,6 @@ emacs_python_packages:
   - importmagic
   - autopep8
   - yapf
-emacs_add_packages:
-  - ack-grep
-  - surfraw
-  - imagemagick
-  - sqlite3
-  - dict
 
 pyenv_runcom: ~
 pyenv_versions:

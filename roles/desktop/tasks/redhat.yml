@@ -1,4 +1,10 @@
 ---
 
+- name: Add epel repository
+  yumrepo:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: "http://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
+
 - name: Install desktop
-  yum: name="@^gnome-desktop-environment" state=present
+  yum: name="@^gnome-desktop-environment" update_cache=yes state=present

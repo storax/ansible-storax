@@ -1,7 +1,7 @@
 ---
 
 - name: Install zsh
-  package: name=zsh force=yes state=latest
+  package: name=zsh state=latest
 
 - name: Set zsh as default shelsudo chsh -s $(which zsh) vagrantl
   user: name={{ ansible_ssh_user }} shell=/usr/bin/zsh
